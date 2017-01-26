@@ -1,0 +1,53 @@
+doctype html
+html
+  head
+    title RedList organisez votre liste de course
+    link(rel='stylesheet' href='http://fonts.googleapis.com/icon?family=Material+Icons' media='screen')
+    link(rel='stylesheet' href='/css/materialize.min.css' media='screen')
+    link(rel='stylesheet' href='/css/main.css' media='screen')
+    link(rel='manifest' href='/manifest.json')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(name='theme-color' content='#d10000')
+  body
+    header
+      nav(class='navigation')
+        .nav-wrapper
+          a(href='#' class='brand-logo center') 
+            img(src='/img/brand-logo.png' alt='RedList')
+          ul#nav-mobile.right
+            li
+              span#global-count.global-count 
+
+    ul#list.collapsible(data-collapsible='expandable')
+
+    div#instructions.instructions
+      img(src='/img/instructions.png' alt='Cliquez sur le bouton plus pour commencer votre liste de course')
+
+    .fixed-action-btn
+      a(id='addItem' data-target='modal1' class='btn-floating btn-large red')
+        i.large.material-icons add
+    
+    #modal1.modal 
+      .modal-content
+        .row
+          form#addForm
+            .input-field.col.s12
+              input#product.validate.autocomplete(type='text', autocomplete='off') 
+              label(for='product') Produit
+            .input-field.col.s9
+              input#quantity.validate(type='text', autocomplete='off')
+              label(for='quantity') Quantitée
+            .input-field.col.s3
+              select#unit
+                option(value='' selected)
+                option(value='g') G
+                option(value='kg') Kg
+                option(value='l') L
+      
+      .modal-footer
+        a#addProduct.btn-large.red.modal-action.modal-close
+          i.large.material-icons add
+    
+    script(type='text/javascript' src='./js/jquery.min.js')
+    script(type='text/javascript' src='./js/materialize.min.js')
+    script(type='text/javascript' src='./js/bundle.js')

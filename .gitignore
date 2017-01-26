@@ -1,0 +1,8 @@
+node_modules/
+
+.DS_Store
+.vscode/
+!/dist
+/dist/*
+!/dist/img
+!/dist/manifest.json
