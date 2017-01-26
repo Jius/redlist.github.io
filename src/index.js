@@ -63,8 +63,8 @@ const updateAutocomplete = (product) => {
 };
 
 const updateHeader = () => {
-  const items = $('.collection-item label');
-  const accomplish = $('label.checked').length;
+  const items = $('.collection-item span.product');
+  const accomplish = $('span.product.checked').length;
   const count = items.length;
   items.off('click').on('click', event => {
     const self = $(event.target);
@@ -84,10 +84,8 @@ const addLine = values => {
     empty = false;
   }
   const section = data.sections[data.products[inverted[values.product]]];
-  const uuid = guid();
   const line = `<li class="collection-item">
-    <input type="checkbox" id="${uuid}" name="${uuid}" />
-    <label for="${uuid}">${values.product}</label>
+    <span class="product">${values.product}</span>
     <span class="badge" data-badge-caption="${values.unit}">${values.quantity}</span>    
   </li>`;
   addLineToSection(line, section);
