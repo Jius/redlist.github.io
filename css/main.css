@@ -1,0 +1,97 @@
+span.product {
+  line-height: 2.2rem;
+  font-size: 2rem;
+  padding-left: 25px;
+  width: 80%;
+  color: #7d7b7b;
+}
+.row {
+  margin-bottom: 0;
+}
+.product-row .over,
+.product-row .actions {
+  display: inline-block;
+}
+.product-row .over {
+  padding: 15px 0;
+  width: 99%;
+}
+.product-row .actions {
+  float: right;
+  padding: 0;
+  text-align: center;
+  width: 0%;
+}
+.product-row .actions .action {
+  padding: 15px 0;
+}
+span.checked {
+  text-decoration: line-through;
+}
+ul.autocomplete-content li img {
+  display: none;
+}
+ul.autocomplete-content li .highlight {
+  color: #d10000;
+}
+.dropdown-content li>a,
+.dropdown-content li>span {
+  color: #000;
+}
+.navigation {
+  background: #d10000 !important;
+}
+.red {
+  background-color: #d10000 !important;
+}
+.collapsible {
+  border: none;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+span.badge {
+  font-size: 2em;
+  padding-top: 5px;
+}
+.collapsible-header {
+  color: #d10000;
+  font-size: 1.3rem;
+}
+.collection .collection-item {
+  padding: 0;
+}
+.instructions {
+  position: fixed;
+  right: 20px;
+  bottom: 4px;
+}
+.instructions img {
+  width: 400px;
+}
+.btn-large i {
+  font-size: 2.7rem;
+}
+.global-count {
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+#addForm label {
+  color: #d10000;
+}
+input:focus {
+  border-bottom: 1px solid #d10000 !important;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0) !important;
+}
+.unity,
+.unity:hover {
+  background-color: #fff;
+  color: #7d7b7b;
+  padding: 0px 15px;
+  margin: 0 3px;
+  width: 48px;
+}
+.unity.selected,
+.unity:hover.selected {
+  background-color: #d10000;
+  color: #fff;
+}
+
