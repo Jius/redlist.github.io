@@ -20,25 +20,24 @@
     "html": "pug -P < src/pug/index.pug > dist/index.html",
     "css": "stylus -m < src/stylus/main.styl > dist/css/main.css",
     "all": "npm run build && npm run html && npm run css",
-    "prod": "browserify [ babelify ] src/jsindex.js -o js/bundle.js && browserify [ babelify ] src/js/sw.js -o sw.js && stylus < src/stylus/main.styl > css/main.css && pug < src/pug/index.pug > index.html",
-    "watch": "npm-watch"
+    "prod": "bower install && browserify -t [ babelify ] src/js/index.js -o js/bundle.js && browserify -t [ babelify ] src/js/sw.js -o sw.js && stylus < src/stylus/main.styl > css/main.css && pug < src/pug/index.pug > index.html",
+    "watch": "npm-watch",
+    "vendor": "bower install"
   },
   "author": "Nicolas Dufreche <n.dufreche@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "babel-preset-es2015": "^6.18.0",
     "babelify": "^7.3.0",
+    "browserify": "^13.3.0",
+    "npm-watch": "^0.1.7",
     "pug": "^2.0.0-beta7",
     "pug-cli": "^1.0.0-alpha6",
-    "npm-watch": "^0.1.7",
-    "stylus": "^0.54.5",
-    "browserify": "^13.3.0"
+    "stylus": "^0.54.5"
   },
   "dependencies": {
     "jquery": "^3.1.1",
     "lodash.defaults": "^4.2.0",
-    "lodash.findkey": "^4.6.0",
-    "lodash.invert": "^4.3.0",
-    "materialize-css": "^0.97.8"
+    "lodash.findkey": "^4.6.0"
   }
 }

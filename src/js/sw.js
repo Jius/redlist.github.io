@@ -4,12 +4,22 @@ const CACHE_NAME = 'v1.0.0';
 const urlsToCache = [
   '/',
   '/index.html',
+  '/manifest.json',
+  '/sw.js',
   '/css/main.css',
-  '/css/materialize.min.css',
+  '/img/instructions.png',
+  '/bower_components/material-design-icons/iconfont/material-icons.css',
+  '/bower_components/materialize/dist/css/materialize.min.css',
   '/img/brand-logo.png',
   '/js/bundle.js',
-  '/js/jquery.min.js',
-  '/js/materialize.min.js'
+  '/bower_components/jquery/dist/jquery.min.js',
+  '/bower_components/materialize/dist/js/materialize.min.js',
+  '/bower_components/material-design-icons/iconfont/MaterialIcons-Regular.ttf',
+  '/bower_components/materialize/dist/fonts/roboto/Roboto-Regular.ttf',
+  '/bower_components/materialize/dist/fonts/roboto/Roboto-Regular.woff',
+  '/bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff',
+  '/bower_components/materialize/dist/fonts/roboto/Roboto-Regular.woff2',
+  '/bower_components/material-design-icons/iconfont/MaterialIcons-Regular.woff2'
 ];
 
 self.addEventListener('install', (event) => {
