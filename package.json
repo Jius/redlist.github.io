@@ -4,24 +4,23 @@
   "description": "",
   "main": "index.js",
   "watch": {
-    "html": "{pug}/*.pug",
-    "css": "{stylus}/*.styl",
-    "build": {
+    "html": "src/pug/*.pug",
+    "css": "src/stylus/*.styl",
+    "js": {
       "patterns": [
-        "src",
+        "src/js",
         "test"
       ],
       "extensions": "js,yaml"
     }
   },
   "scripts": {
-    "build": "browserify --debug -t [ babelify ] src/index.js -o dist/js/bundle.js",
-    "sw": "browserify -t [ babelify ] src/sw.js -o dist/sw.js",
-    "html": "pug -P < pug/index.pug > dist/index.html",
-    "test": "lab -cCD test/index.js",
-    "css": "stylus -m < stylus/main.styl > dist/css/main.css",
+    "js": "browserify --debug -t [ babelify ] src/js/index.js -o dist/js/bundle.js",
+    "sw": "browserify -t [ babelify ] src/js/sw.js -o dist/sw.js",
+    "html": "pug -P < src/pug/index.pug > dist/index.html",
+    "css": "stylus -m < src/stylus/main.styl > dist/css/main.css",
     "all": "npm run build && npm run html && npm run css",
-    "prod": "browserify [ babelify ] src/index.js -o dist/js/bundle.js && browserify [ babelify ] src/sw.js -o dist/sw.js && stylus < stylus/main.styl > dist/css/main.css && pug < pug/index.pug > dist/index.html",
+    "prod": "browserify [ babelify ] src/jsindex.js -o js/bundle.js && browserify [ babelify ] src/js/sw.js -o sw.js && stylus < src/stylus/main.styl > css/main.css && pug < src/pug/index.pug > index.html",
     "watch": "npm-watch"
   },
   "author": "Nicolas Dufreche <n.dufreche@gmail.com>",
