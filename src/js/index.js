@@ -62,19 +62,24 @@ const updateAutocomplete = (product) => {
   });
 };
 
+const onClickOnProduct = event => {
+  let self = $(event.target);
+  console.log(self.hasClass('product'));
+  if (!self.hasClass('product')) self = self.find('.product');
+
+  if (self.hasClass('checked')) {
+    self.removeClass('checked')
+  } else {
+    self.addClass('checked')
+  }
+  updateHeader()
+}
+
 const updateHeader = () => {
-  const items = $('.collection-item label');
-  const accomplish = $('label.checked').length;
+  const items = $('.collection-item .product-row');
+  const accomplish = $('span.product.checked').length;
   const count = items.length;
-  items.off('click').on('click', event => {
-    const self = $(event.target);
-    if (self.hasClass('checked')) {
-      self.removeClass('checked')
-    } else {
-      self.addClass('checked')
-    }
-    updateHeader()
-  });
+  items.off('click').on('click', onClickOnProduct);
   el.count.text(`${accomplish}/${count}`);
 }
 
@@ -84,11 +89,17 @@ const addLine = values => {
     empty = false;
   }
   const section = data.sections[data.products[inverted[values.product]]];
-  const uuid = guid();
   const line = `<li class="collection-item">
-    <input type="checkbox" id="${uuid}" name="${uuid}" />
-    <label for="${uuid}">${values.product}</label>
-    <span class="badge" data-badge-caption="${values.unit}">${values.quantity}</span>    
+    <div class="product-row">
+      <span class="over">
+        <span class="product">${values.product}</span>
+        <span class="badge" data-badge-caption="${values.unit}">${values.quantity}</span>
+      </span>
+      <span class="actions row">
+        <span class="col s6 amber action"><i class="material-icons white-text">edit</i></span>
+        <span class="col s6 red action"><i class="material-icons white-text">delete</i></span>
+      </span>
+    </div>
   </li>`;
   addLineToSection(line, section);
   updateAutocomplete(values.product);
@@ -101,6 +112,18 @@ $(document).ready(() => {
   $('.collapsible').collapsible();
   $('input#product').autocomplete({
     data: inverted
+  });
+
+  $('.unity').click( event => {
+    const self = $(event.target)
+    el.unit.val('');
+
+    if (!self.hasClass('selected')) {
+      el.unit.val(self.data('unit'));
+    } else {
+      $('.unity.selected');
+    }
+    self.toggleClass('selected');
   });
 
   Storage.get().forEach(addLine);

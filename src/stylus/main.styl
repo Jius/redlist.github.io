@@ -1,0 +1,95 @@
+redlist = #D10000
+greyText = #7d7b7b
+
+span.product
+  line-height: 2.2rem
+  font-size: 2rem
+  padding-left: 25px
+  width: 80%
+  color: greyText
+
+.row
+  margin-bottom: 0
+
+.product-row
+  .over, .actions
+    display: inline-block
+  .over
+    padding: 15px 0
+    width: 99%
+  .actions
+    float: right
+    padding: 0
+    text-align: center
+    width: 0%
+    .action
+      padding: 15px 0
+
+span.checked
+  text-decoration: line-through
+
+ul.autocomplete-content li 
+  img
+    display: none
+    
+  .highlight
+    color: redlist
+
+.dropdown-content li>a, .dropdown-content li>span
+    color: black
+
+.navigation
+  background: redlist !important
+
+.red
+  background-color: redlist !important
+
+.collapsible
+  border: none
+  box-shadow: 0 0 0 0 rgba(0,0,0,0)
+
+span.badge
+  font-size: 2em
+  padding-top: 5px
+
+.collapsible-header
+  color: redlist
+  font-size: 1.3rem
+
+.collection .collection-item
+  padding: 0
+
+.instructions
+  position: fixed;
+  right: 20px;
+  bottom: 4px;
+
+  img
+    width: 400px
+
+.btn-large i
+  font-size: 2.7rem
+
+.global-count
+  font-size: 1.3rem
+  margin-right: 10px
+
+#addForm
+  label
+    color: redlist;
+
+input:focus
+  border-bottom: 1px solid redlist !important
+  box-shadow: 0 0 0 0 rgba(0,0,0,0) !important
+
+.unity,
+.unity:hover
+  background-color: white
+  color: greyText
+  padding: 0px 15px;
+  margin: 0 3px;
+  width: 48px;
+
+  &.selected
+    background-color: redlist
+    color: white
