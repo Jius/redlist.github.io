@@ -16,12 +16,12 @@
   },
   "scripts": {
     "build": "browserify --debug -t [ babelify ] src/index.js -o dist/js/bundle.js",
-    "vendor": "browserify -t [ babelify ] src/vendor.js -o dist/js/vendor.js",
     "sw": "browserify -t [ babelify ] src/sw.js -o dist/sw.js",
     "html": "pug -P < pug/index.pug > dist/index.html",
     "test": "lab -cCD test/index.js",
     "css": "stylus -m < stylus/main.styl > dist/css/main.css",
     "all": "npm run build && npm run html && npm run css",
+    "prod": "browserify [ babelify ] src/index.js -o dist/js/bundle.js && browserify [ babelify ] src/sw.js -o dist/sw.js && stylus < stylus/main.styl > dist/css/main.css && pug < pug/index.pug > dist/index.html",
     "watch": "npm-watch"
   },
   "author": "Nicolas Dufreche <n.dufreche@gmail.com>",
@@ -29,6 +29,10 @@
   "devDependencies": {
     "babel-preset-es2015": "^6.18.0",
     "babelify": "^7.3.0",
+    "pug": "^2.0.0-beta7",
+    "pug-cli": "^1.0.0-alpha6",
+    "npm-watch": "^0.1.7",
+    "stylus": "^0.54.5",
     "browserify": "^13.3.0"
   },
   "dependencies": {
@@ -36,12 +40,6 @@
     "lodash.defaults": "^4.2.0",
     "lodash.findkey": "^4.6.0",
     "lodash.invert": "^4.3.0",
-    "lodash.toarray": "^4.4.0",
-    "materialize-css": "^0.97.8",
-    "npm-watch": "^0.1.7",
-    "pellmell": "^1.0.0",
-    "pug": "^2.0.0-beta7",
-    "pug-cli": "^1.0.0-alpha6",
-    "stylus": "^0.54.5"
+    "materialize-css": "^0.97.8"
   }
 }

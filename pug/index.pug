@@ -32,17 +32,16 @@ html
         .row
           form#addForm
             .input-field.col.s12
-              input#product.validate.autocomplete(type='text', autocomplete='off') 
+              input#product.autocomplete(type='text', autocomplete='off') 
               label(for='product') Produit
-            .input-field.col.s9
-              input#quantity.validate(type='text', autocomplete='off')
+            .input-field.col.s4
+              input#quantity(type='text', autocomplete='off')
               label(for='quantity') Quantitée
-            .input-field.col.s3
-              select#unit
-                option(value='' selected)
-                option(value='g') G
-                option(value='kg') Kg
-                option(value='l') L
+            .input-field.col.s8
+              a(class='waves-effect waves-light btn unity' data-unit='g') G
+              a(class='waves-effect waves-light btn unity' data-unit='Kg') Kg
+              a(class='waves-effect waves-light btn unity' data-unit='l') L
+              input#unit(type='hidden')
       
       .modal-footer
         a#addProduct.btn-large.red.modal-action.modal-close
