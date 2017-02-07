@@ -4,6 +4,7 @@ const i18n = require('./i18n');
 const data = require('./data');
 const Invert = require('lodash.invert');
 const Storage = require('./storage');
+const Mate = require('./mate');
 let inverted = Invert(i18n.fr_FR.products);
 let empty = true;
 
@@ -106,8 +107,27 @@ const addLine = values => {
   updateHeader();
 }
 
+const modal = Mate.modal('#modal1');
+
+const addItemBtn = document.querySelector('#addItem');
+const hAddItemBtn = new Hammer(addItemBtn);
+
+//Hammer 'tap' attach on add item button
+hAddItemBtn.on('tap', function(ev) {
+  modal.open();
+});
+
+const closersModal = document.querySelectorAll('.modal-close');
+
+for (let i = 0; i < closersModal.length; i++) {
+  let mc = new Hammer(closersModal[i]);
+  mc.on("tap", function() {
+    modal.close();
+  });
+}
+
+
 $(document).ready(() => {
-  $('.modal').modal();
   $('select').material_select();
   $('.collapsible').collapsible();
   $('input#product').autocomplete({
