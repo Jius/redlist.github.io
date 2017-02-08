@@ -1,9 +1,16 @@
 redlist = #D10000
 greyText = #7d7b7b
 
-.modal.open 
-  display: block
-
+.modal
+  &.open 
+    display: block
+  
+  .close
+    position: absolute
+    margin: 5px
+    right: 0
+    top: 0
+    z-index: 1
 
 span.product
   line-height: 2.2rem
