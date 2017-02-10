@@ -1,9 +1,9 @@
 'use strict';
 
 const Mate = {
-  modal: (el) => {
+  modal: (id) => {
     const action = (val) => {
-      const modal = document.querySelector(el),
+      const modal = document.querySelector(id),
             getClass =  modal.getAttribute('class'),
             openClass = 'open';
       let   newClass = '';
@@ -17,6 +17,29 @@ const Mate = {
     };
     
     return {
+      register: (openCallback, closeCallBack) => {
+        const modal = Mate.modal(id),
+              trigger = {
+                open: '#addItem',
+                close: '.modal-close'
+              },
+              suffixModule = 'Callback';
+        
+        for (let prop in trigger) {
+          if (trigger[prop]) {
+            let query = document.querySelectorAll(trigger[prop]);
+            if (query.length == 1) {
+              (prop == 'open'? openCallback(trigger[prop], modal) : closeCallBack(trigger[prop], modal));
+            } else {
+              for (let i = 0; i < query.length; i++) {
+                let getIdFromClass = '#' + query[i].getAttribute('id'); //Important to declare ID from action Trigger button
+                (prop == 'open'? openCallback(getIdFromClass, modal) : closeCallBack(getIdFromClass, modal));
+              }
+            }
+          }
+        }
+        
+      },
       open: () => {
         action('open');
       },

@@ -107,24 +107,17 @@ const addLine = values => {
   updateHeader();
 }
 
-const modal = Mate.modal('#modal1');
-
-const addItemBtn = document.querySelector('#addItem');
-const hAddItemBtn = new Hammer(addItemBtn);
-
-//Hammer 'tap' attach on add item button
-hAddItemBtn.on('tap', function(ev) {
-  modal.open();
-});
-
-const closersModal = document.querySelectorAll('.modal-close');
-
-for (let i = 0; i < closersModal.length; i++) {
-  let mc = new Hammer(closersModal[i]);
-  mc.on("tap", function() {
-    modal.close();
-  });
-}
+const modal = Mate.modal('#modal1').register(
+  (id, modal) => {
+    const   mc = new Hammer(document.querySelector(id));
+    mc.on('tap', () => {modal.open()});
+  }, 
+  
+  (id, modal) => {
+    const   mc = new Hammer(document.querySelector(id));
+    mc.on('tap', () => {modal.close()});
+  }
+);
 
 
 $(document).ready(() => {
