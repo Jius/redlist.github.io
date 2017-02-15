@@ -4,7 +4,7 @@ const Mate = {
   modal: (id, options) => {
     let   init = false;
     
-    const defineOptions = {
+    const defaultOptions = {
             overlay: true,
             showCloseBtn: true,
             triggers: {
@@ -13,47 +13,63 @@ const Mate = {
             }
           },
           
-          checkTriggersOptions = (triggers, defaultOptions) => {
-            for (let act in triggers) {
-              if (triggers[act] == undefined) {
-                triggers[act] = defaultOptions[act];
-              }
-            }
-            return triggers;
-          },
-          
-          initOptions = (op) => {
-            if (!op) {
-              op = defineOptions;
-            } else {
-              for (let prop in defineOptions) {
-                if (op[prop] == undefined) {
-                  op[prop] = defineOptions[prop];
-                } else if (prop == 'triggers') {
-                  op[prop] = checkTriggersOptions(op[prop], defineOptions[prop]);
+          checkUserOption = (key, userOptions) => {
+            if (userOptions[key] == undefined) {
+              userOptions[key] = defaultOptions[key];
+            } else if (typeof defaultOptions[key] == 'object') {
+              for (let action in defaultOptions[key]) {
+                if (userOptions[key][action] == undefined) {
+                  userOptions[key][action] = defaultOptions[key][action];
                 }
               }
             }
+            return userOptions[key];
+          },
+          
+          initOptions = (opt) => {
+            if (!opt) {
+              opt = defaultOptions;
+            } else {
+              for (let prop in defaultOptions) {
+                opt[prop] = checkUserOption(prop, opt);
+              }
+            }
+            console.log(opt);
             init = true;
-            return op;
+            return opt;
           };
           
     if (!init) {
       options = initOptions(options);
     }
     
+    const Overlay = (idOverlay) => {
+      return {
+        selectOrCreate: () => {
+          let overlay = document.querySelector(idOverlay);
+          
+          if (!overlay || overlay == undefined) {
+            overlay = document.createElement('div');
+            overlay.setAttribute('id', idOverlay.replace('#', ''));
+            overlay.setAttribute('class', 'modal-overlay');
+            document.body.appendChild(overlay);
+          }
+          return overlay;
+        }
+      }
+    };
+    
     const action = (val) => {
       const modal = document.querySelector(id),
-            getClass =  modal.getAttribute('class'),
-            openClass = 'open';
-      let   newClass = '';
+            overlay = Overlay('#overlay').selectOrCreate();
       
       if (val == 'open') {
-        newClass = (getClass.search(openClass) == -1 ? getClass + ' ' + openClass : getClass);
+        modal.classList.add('open');
+        overlay.classList.add('active');
       } else {
-        newClass = getClass.replace(openClass, '');
+        modal.classList.remove('open')
+        overlay.classList.remove('active');
       }
-      modal.setAttribute('class', newClass);
     };
     
     return {
@@ -73,11 +89,12 @@ const Mate = {
             }
           }
         }
-        
       },
+      
       open: () => {
         action('open');
       },
+      
       close: () => {
         action('close');
       }

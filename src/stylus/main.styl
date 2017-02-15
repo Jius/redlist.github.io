@@ -2,6 +2,7 @@ redlist = #D10000
 greyText = #7d7b7b
 
 .modal
+  z-index: 1000
   &.open 
     display: block
   
@@ -10,7 +11,12 @@ greyText = #7d7b7b
     margin: 5px
     right: 0
     top: 0
-    z-index: 1
+
+#overlay
+  &.active
+    display: block
+    opacity: 0.5
+    z-index: 999
 
 span.product
   line-height: 2.2rem
