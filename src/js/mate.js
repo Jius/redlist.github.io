@@ -101,7 +101,7 @@ const Mate = {
   },
   
   each: (selector, callback) => {
-    const query = document.querySelectorAll(selector);
+    let query = (typeof selector !== 'object'? document.querySelectorAll(selector) : selector);
     for (let i = 0; i < query.length; i++) {
       callback(query[i]);
     }
