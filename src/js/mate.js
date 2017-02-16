@@ -13,34 +13,33 @@ const Mate = {
             }
           },
           
-          checkUserOption = (key, userOptions) => {
+          checkUserOption = (key, userOptions, defaultOpt) => {
             if (userOptions[key] == undefined) {
-              userOptions[key] = defaultOptions[key];
-            } else if (typeof defaultOptions[key] == 'object') {
-              for (let action in defaultOptions[key]) {
+              userOptions[key] = defaultOpt[key];
+            } else if (typeof defaultOpt[key] == 'object') {
+              for (let action in defaultOpt[key]) {
                 if (userOptions[key][action] == undefined) {
-                  userOptions[key][action] = defaultOptions[key][action];
+                  userOptions[key][action] = defaultOpt[key][action];
                 }
               }
             }
             return userOptions[key];
           },
           
-          initOptions = (opt) => {
+          initOptions = (opt, defaultOpt) => {
             if (!opt) {
-              opt = defaultOptions;
+              opt = defaultOpt;
             } else {
-              for (let prop in defaultOptions) {
-                opt[prop] = checkUserOption(prop, opt);
+              for (let prop in defaultOpt) {
+                opt[prop] = checkUserOption(prop, opt, defaultOpt);
               }
             }
-            console.log(opt);
             init = true;
             return opt;
           };
           
     if (!init) {
-      options = initOptions(options);
+      options = initOptions(options, defaultOptions);
     }
     
     const Overlay = (idOverlay) => {
@@ -98,6 +97,13 @@ const Mate = {
       close: () => {
         action('close');
       }
+    }
+  },
+  
+  each: (selector, callback) => {
+    const query = document.querySelectorAll(selector);
+    for (let i = 0; i < query.length; i++) {
+      callback(query[i]);
     }
   }
 }
