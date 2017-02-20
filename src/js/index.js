@@ -9,31 +9,31 @@ let inverted = Invert(i18n.fr_FR.products);
 let empty = true;
 
 const el = {
-  product: $('#addForm #product'),
-  quantity: $('#addForm #quantity'),
-  unit: $('#addForm #unit'),
-  list: $('#list'),
-  btn: $('#addProduct'),
-  count: $('#global-count')
+  product: $('#addForm #product'), //For the moment, keep jQuery to continue with autocomplete.
+  quantity: document.querySelector('#addForm #quantity'),
+  unit: document.querySelector('#addForm #unit'),
+  list: document.querySelector('#list'),
+  btn: document.querySelector('#addProduct'),
+  count: document.querySelector('#global-count')
 };
 
 const resetForm = () => {
   el.product.val('');
-  el.quantity.val('');
-  el.unit.val('');
+  el.quantity.value = '';
+  el.unit.value = '';
 }
 
-el.btn.click(() => {
+const addProduct = new Hammer(el.btn);
+addProduct.on('tap', () => {
   const values = {
     product: el.product.val(),
-    quantity: el.quantity.val(),
-    unit: el.unit.val()
+    quantity: el.quantity.value,
+    unit: el.unit.value
   }
   
   addLine(values);
   Storage.set(values);
   resetForm();
-  console.log(localStorage);
 });
 
 const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
@@ -43,50 +43,51 @@ const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
 const guid = () =>  s4() + s4() + s4();
 
 const addLineToSection = (line, section) => {
-  const $section = el.list.find(`#${section}`);
-  if ($section.length === 0) {
+  const $section = el.list.querySelector(`#${section}`);
+  if ($section === null) {
     const tpl = `<li id="${section}" class="active">
       <div class="collapsible-header active">${i18n.fr_FR.sections[section]}</div>
       <div class="collapsible-body" style="display: block;"><ul class="collection section-list"></ul></div>
     </li>`;
 
-    el.list.prepend(tpl);
+    el.list.insertAdjacentHTML('afterbegin', tpl);
   }
-  el.list.find(`#${section} .section-list`).prepend(line);
+  el.list.querySelector(`#${section} .section-list`).insertAdjacentHTML('afterbegin', line);
 };
 
 const updateAutocomplete = (product) => {
   delete inverted[product];
-  $('.autocomplete-content').remove();
+  Mate.each('.autocomplete-content', (target) => {target.remove();});
   el.product.autocomplete({
     data: inverted
   });
 };
 
-const onClickOnProduct = event => {
-  let self = $(event.target);
-  console.log(self.hasClass('product'));
-  if (!self.hasClass('product')) self = self.find('.product');
-
-  if (self.hasClass('checked')) {
-    self.removeClass('checked')
-  } else {
-    self.addClass('checked')
-  }
-  updateHeader()
+const onClickOnProduct = (event) => {
+  let self =event.target;
+  if (!self.classList.contains('product')) self = self.querySelector('.product');
+  self.classList.toggle('checked');
+  updateHeader();
 }
 
 const updateHeader = () => {
   const items = $('.collection-item .product-row');
   const accomplish = $('span.product.checked').length;
   const count = items.length;
-  items.off('click').on('click', onClickOnProduct);
-  el.count.text(`${accomplish}/${count}`);
+  Hammer.each(items, (item, index, src) => {
+    const mc = new Hammer(item);
+    mc.on('tap', (ev) => {
+      mc.off('tap');
+      onClickOnProduct(ev);
+    });
+  });
+  
+  el.count.textContent = `${accomplish}/${count}`;
 }
 
 const addLine = values => {
   if (empty === true) {
-    $('#instructions').remove();
+    document.querySelector('#instructions').remove();
     empty = false;
   }
   const section = data.sections[data.products[inverted[values.product]]];
@@ -126,17 +127,14 @@ $(document).ready(() => {
   $('input#product').autocomplete({
     data: inverted
   });
-
-  $('.unity').click( event => {
-    const self = $(event.target)
-    el.unit.val('');
-
-    if (!self.hasClass('selected')) {
-      el.unit.val(self.data('unit'));
-    } else {
-      $('.unity.selected');
-    }
-    self.toggleClass('selected');
+  
+  Mate.each('.unity', (target) => {
+    const mc = new Hammer(target);
+    mc.on('tap', () => {
+      Mate.each('.unity', (target) => {target.classList.remove('selected')});
+      el.unit.value = target.dataset.unit;
+      target.classList.toggle('selected');
+    });
   });
 
   Storage.get().forEach(addLine);
